@@ -1,0 +1,24 @@
+services:
+  motion-studio:
+    build:
+      context: .
+      # 国内网络默认走镜像源，海外环境改为：
+      #   build: { context: ., args: { NPM_REGISTRY: "https://registry.npmjs.org", PIP_INDEX_URL: "https://pypi.org/simple" } }
+      args:
+        NPM_REGISTRY: "https://registry.npmmirror.com"
+        PIP_INDEX_URL: "https://pypi.tuna.tsinghua.edu.cn/simple"
+    image: motion-studio:latest
+    container_name: motion-studio
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      # 数据库持久化到命名卷
+      MOTION_DB_PATH: /data/motion_studio.db
+      # "*" 放开 MCP Host 校验；收紧可改为 "localhost:*,your.domain:*"
+      MCP_ALLOWED_HOSTS: "*"
+    volumes:
+      - motion-studio-data:/data
+    restart: unless-stopped
+
+volumes:
+  motion-studio-data:
