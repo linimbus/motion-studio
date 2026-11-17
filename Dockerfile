@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:1
 # =====================================================================
 # Motion Studio 动效工坊 —— 多阶段构建
 #   阶段 1: Node 构建 React 前端 (frontend/ → dist)
@@ -8,7 +7,7 @@
 # =====================================================================
 
 # ---------------- 阶段 1：前端构建 ----------------
-FROM node:20-alpine AS frontend-builder
+FROM docker.m.daocloud.io/node:20-alpine AS frontend-builder
 # 国内网络可去掉注释或用 --build-arg 覆盖
 ARG NPM_REGISTRY=https://registry.npmmirror.com
 
@@ -23,9 +22,9 @@ COPY frontend/ ./
 RUN npm run build
 
 # ---------------- 阶段 2：运行时 ----------------
-FROM python:3.12-slim
+FROM docker.m.daocloud.io/python:3.12-slim
 # 国内网络可去掉注释或用 --build-arg 覆盖
-ARG PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
+ARG PIP_INDEX_URL=https://mirrors.aliyun.com/pypi/simple
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \

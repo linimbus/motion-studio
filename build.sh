@@ -17,7 +17,7 @@
 #   TAG=latest            镜像标签
 #   PORT=8000             宿主机端口
 #   NPM_REGISTRY=...      npm 镜像源（默认国内源，海外设为 https://registry.npmjs.org）
-#   PIP_INDEX_URL=...     pip 镜像源（默认国内源，海外设为 https://pypi.org/simple）
+#   PIP_INDEX_URL=...     pip 镜像源（默认阿里云源，海外设为 https://pypi.org/simple）
 # =====================================================================
 set -euo pipefail
 
@@ -26,7 +26,7 @@ TAG="${TAG:-latest}"
 PORT="${PORT:-8000}"
 CONTAINER="motion-studio"
 NPM_REGISTRY="${NPM_REGISTRY:-https://registry.npmmirror.com}"
-PIP_INDEX_URL="${PIP_INDEX_URL:-https://pypi.tuna.tsinghua.edu.cn/simple}"
+PIP_INDEX_URL="${PIP_INDEX_URL:-https://mirrors.aliyun.com/pypi/simple}"
 
 cd "$(dirname "$0")"
 
